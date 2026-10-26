@@ -1,0 +1,16 @@
+{
+  "name": "AfroBRAIN v2",
+  "short_name": "AfroBRAIN",
+  "description": "African brain puzzle game made in Cameroon",
+  "start_url": "/AfroBRAIN-v2/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#FFD700",
+  "icons": [
+    {
+      "src": "https://nforbinsirriedna.github.io/AfroBRAIN-v2/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
