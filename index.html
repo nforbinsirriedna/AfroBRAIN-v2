@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AfroBRAIN v2</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FFD700">
+<meta name="description" content="African brain puzzle game made in Cameroon">
+<link rel="icon" href="icon.png">
+<style>
+body{margin:0;background:#000;color:#fff;font-family:Arial;text-align:center}
+#game{padding:20px}
+button{background:#FFD700;color:#000;padding:12px 20px;border:none;border-radius:8px;font-weight:bold}
+</style>
+</head>
+<body>
+<div id="game">
+<h1>AfroBRAIN v2</h1>
+<p>African Brain Puzzle - Made in Cameroon</p>
+<div id="afrobrain-app">
+<!-- YOUR ORIGINAL GAME CODE STARTS HERE - KEEP YOUR GAME SCRIPT -->
+<p>Loading game...</p>
+</div>
+</div>
+
+<script>
+// Register Service Worker for PWABuilder
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+<!-- PASTE YOUR ORIGINAL AfroBRAIN GAME <script> HERE BELOW THIS LINE -->
+<script>
+// Your game javascript - keep what you had before
+console.log("AfroBRAIN v2 loaded");
+</script>
+
+</body>
+</html>
