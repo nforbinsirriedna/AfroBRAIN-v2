@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AfroBRAIN v2</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body{background:#8a2be2;color:white;text-align:center;font-family:Arial;padding:20px}
+h1{color:#FFD700}
+button{background:#FFD700;color:#8a2be2;padding:15px 30px;border:none;border-radius:12px;font-weight:bold;font-size:18px}
+#box{background:white;color:#8a2be2;padding:20px;border-radius:15px;margin:20px auto;max-width:300px}
+</style>
+</head>
+<body>
+<h1>AfroBRAIN v2 💜</h1>
+<div id="box">
+<p>Afro Brain Puzzle</p>
+<p id="score">Score: 0</p>
+<button onclick="play()">PLAY</button>
+<p id="q"></p>
+</div>
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+let s=0;
+function play(){
+ s+=10;
+ document.getElementById('score').innerText='Score: '+s;
+ document.getElementById('q').innerText='Good! 🧠 Question '+(s/10)+' - You are smart!';
+}
+</script>
+</body>
+</html>
