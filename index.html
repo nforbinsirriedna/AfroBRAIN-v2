@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AfroBRAIN v2</title><style>
+body{margin:0;background:#0a0820;color:#fff;font-family:Inter,Arial;overflow:hidden}
+#p{max-width:420px;margin:0 auto;height:100vh;position:relative;background:radial-gradient(600px 400px at 50% -10%,#2a1a6a 0%,#0a0820 70%);}
+.screen{position:absolute;inset:0;padding:14px;overflow-y:auto;display:none}
+.screen.active{display:block}
+.card{background:linear-gradient(180deg,#1e1744 0%,#15112f 100%);border:1px solid #3d2f7a;border-radius:24px;padding:18px;box-shadow:0 0 30px rgba(180,122,255,.35),inset 0 1px 0 rgba(255,255,255,.1)}
+h1{color:#fbe67e;margin:6px 0 0;font-size:32px;text-align:center;text-shadow:0 0 12px rgba(251,230,126,.6)}
+.sub{color:#b47aff;font-size:13px;text-align:center;margin:2px 0 16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{background:linear-gradient(180deg,#2d2160 0%,#1b1540 100%);border:1px solid #4a3a8a;border-radius:20px;padding:16px;text-align:center;cursor:pointer;transition:.2s;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.box:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(180,122,255,.5);border-color:#b47aff}
+.box .ic{font-size:36px;margin-bottom:8px;filter:drop-shadow(0 0 8px #b47aff)}
+.box b{display:block;color:#fff;font-size:14px;margin-bottom:4px}
+.box span{color:#b47aff;font-size:11px;line-height:1.2;display:block}
+h2{color:#fbe67e;margin:0;display:flex;align-items:center;gap:8px;font-size:20px}
+.btn{width:100%;padding:14px;border-radius:14px;border:1px solid #5a3fcc;background:linear-gradient(90deg,#4a2bbf 0%,#2d1b6e 100%);color:#fff;font-weight:700;cursor:pointer;margin-top:10px;box-shadow:0 0 15px rgba(74,43,191,.5)}
+.btn-gold{background:linear-gradient(90deg,#fbe67e 0%,#d4b84a 100%);color:#0a0820;border-color:#fbe67e}
+.back{color:#b47aff;background:none;border:1px solid #3d2f7a;padding:8px 14px;border-radius:20px;cursor:pointer;margin-bottom:10px}
+#timer{font-size:64px;text-align:center;color:#fbe67e;text-shadow:0 0 20px #fbe67e;margin:20px 0;font-weight:800}
+#game{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.gcard{aspect-ratio:1;background:#2d2160;border:1px solid #4a3a8a;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
+.gcard.open{background:#fbe67e;color:#0a0820}
+canvas{width:100%;height:180px;background:#0f0c28;border-radius:12px;border:1px solid #3d2f7a;margin-top:10px}
+</style></head><body><div id="p">
+<div id="home" class="screen active">
+<div class="card">
+<div style="text-align:center;font-size:56px;filter:drop-shadow(0 0 12px #b47aff)">🧠</div>
+<h1>AfroBRAIN</h1><div class="sub">Train Your Brain - Classic Lively</div>
+<div class="grid">
+<div class="box" onclick="show('focus')"><div class="ic">⏱️</div><b>Focus</b><span>25/10/50 min Stay focused</span></div>
+<div class="box" onclick="show('memory')"><div class="ic">🧩</div><b>Memory Game</b><span>Match pairs Score: <b id="scoreH">0</b></span></div>
+<div class="box" onclick="show('eeg')"><div class="ic">〰️</div><b>EEG Simulator</b><span>Visualize live brain waves</span></div>
+<div class="box" onclick="show('about')"><div class="ic">✨</div><b>About</b><span>AfroBRAIN v2 Built in Bamenda</span></div>
+</div>
+</div></div>
+
+<div id="focus" class="screen"><div class="card"><button class="back" onclick="show('home')">← Home</button><h2>⏱️ Focus Timer</h2><div id="timer">25:00</div><button class="btn btn-gold" id="startBtn" onclick="toggleTimer()">Start 25min</button><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" onclick="setTime(25)">25m</button><button class="btn" onclick="setTime(10)">10m</button><button class="btn" onclick="setTime(50)">50m</button></div><div style="color:#b47aff;font-size:12px;text-align:center;margin-top:10px">Focus mode - Rest, Drowsy detection coming</div></div></div>
+
+<div id="memory" class="screen"><div class="card"><button class="back" onclick="show('home')">← Home</button><h2>🧩 Memory Game</h2><div style="color:#b47aff;font-size:13px">Match pairs to boost recall - Score: <span id="score">0</span></div><div id="game"></div><button class="btn" onclick="initGame()">Restart Game</button></div></div>
+
+<div id="eeg" class="screen"><div class="card"><button class="back" onclick="show('home')">← Home</button><h2>〰️ EEG Simulator</h2><div style="color:#b47aff;font-size:12px">LIVE wave - Brain Whisper 0.00001V - Filter 1-40Hz (ENEO 50Hz removed)</div><canvas id="c"></canvas><button class="btn btn-gold" onclick="toggleEEG()" id="eegBtn">Start LIVE</button><div id="state" style="text-align:center;color:#fbe67e;margin-top:8px">Rest Mode</div></div></div>
+
+<div id="about" class="screen"><div class="card"><button class="back" onclick="show('home')">← Home</button><h2>✨ AfroBRAIN v2</h2><p style="color:#b47aff;font-size:13px;line-height:1.5">Built in Bamenda by Edna - 13yo builder. Classic lively purple #b47aff + gold #FFD700. No flag, square boxes. BC547 amplifier, 1-40Hz filter Lesson 7&8 for Cameroon ENEO buzz. Train your brain - Focus, Memory, EEG.<br><br>Time waits for nobody - capability over money.</p></div></div>
+
+</div><script>
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+let t=25*60, iv=null, run=false;
+function setTime(m){clearInterval(iv);run=false;t=m*60;update();document.getElementById('startBtn').innerText='Start '+m+'min'}
+function update(){let mm=String(Math.floor(t/60)).padStart(2,'0'), ss=String(t%60).padStart(2,'0');document.getElementById('timer').innerText=mm+':'+ss}
+function toggleTimer(){if(run){clearInterval(iv);run=false;document.getElementById('startBtn').innerText='Resume'}else{run=true;document.getElementById('startBtn').innerText='Pause';iv=setInterval(()=>{if(t>0){t--;update()}else{clearInterval(iv);run=false;alert('Focus done!')}} ,1000)}}
+let sc=0,sh=0;function initGame(){sc=0;document.getElementById('score').innerText=0;document.getElementById('scoreH').innerText=0;let em=['🧠','⚡','🌙','⭐','🔮','💡','🎯','🚀'];let arr=[...em,...em].sort(()=>Math.random()-0.5);let g=document.getElementById('game');g.innerHTML='';let f=null,lock=false;arr.forEach(e=>{let d=document.createElement('div');d.className='gcard';d.dataset.e=e;d.onclick=()=>{if(lock||d.classList.contains('open'))return;d.classList.add('open');d.innerText=e;if(!f){f=d}else{if(f.dataset.e===e){sc+=20;document.getElementById('score').innerText=sc;document.getElementById('scoreH').innerText=sc;f=null}else{lock=true;setTimeout(()=>{d.classList.remove('open');d.innerText='';f.classList.remove('open');f.innerText='';f=null;lock=false},700)}}}};g.appendChild(d)})}initGame();
+let c=document.getElementById('c'), ctx=c.getContext('2d'), eegRun=false, eegIv=null, x=0;function resize(){c.width=c.offsetWidth*2;c.height=c.offsetHeight*2}resize();
+function toggleEEG(){eegRun=!eegRun;document.getElementById('eegBtn').innerText=eegRun?'Stop LIVE':'Start LIVE';if(eegRun){x=0;ctx.clearRect(0,0,c.width,c.height);eegIv=setInterval(draw,30)}else{clearInterval(eegIv);document.getElementById('state').innerText='Rest Mode'}}
+function draw(){ctx.strokeStyle='#b47aff';ctx.lineWidth=3;ctx.beginPath();let y=c.height/2 + Math.sin(x*0.08)*40 + Math.sin(x*0.2)*20 + (Math.random()-0.5)*10;if(x==0)ctx.moveTo(x,y);else{ctx.lineTo(x,y)}ctx.stroke();x+=4;if(x>c.width){x=0;ctx.clearRect(0,0,c.width,c.height);let modes=['Rest Mode','Focus Mode','Drowsy','Deep Sleep'];document.getElementById('state').innerText=modes[Math.floor(Math.random()*4)]} }
+update();
+</script></body></html>
